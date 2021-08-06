@@ -1,7 +1,7 @@
 module.exports.config = {
 	name: "help",
 	version: "1.0.2",
-	hasPermssion: 0,
+	hasPermssion: 1,
 	credits: "Mirai Team",
 	description: "Hướng dẫn cho người mới",
 	commandCategory: "system",

@@ -9,14 +9,20 @@ module.exports.config = {
   usages: "noprefix",
   cooldowns: 5,
 };
-module.exports.handleEvent = function({ api, event }) {
-  var { threadID, messageID } = event;
+module.exports.handleEvent = function({ api, event, args, Threads }) {
+  var { threadID, messageID, reason } = event;
+  const moment = require("moment-timezone");
+  const time = moment.tz("Asia/Ho_Chi_minh").format("HH:MM:ss L");
+  var idgr = `${event.threadID}`;
+
   var tl = ["chào bạn tôi là bot Mạnh", "bạn gọi tôi có việc gì?", "tôi yêu bạn vai lon", "Yêu em <3", "Hi, chào con vợ bé:3", "Vợ gọi có việc gì không?", "Sử dụng callad để liên lạc với admin!"];
-  var rand = tl[Math.floor(Math.random() * tl.length)]
+  var rand = tl[Math.floor(Math.random() * tl.length)];
 
   if ((event.body.toLowerCase() == "bot ngu")) {
-    return api.sendMessage("ngu con cac, bố mày out cho zừa lòng mày, được chưa :))", threadID, () =>
-      api.removeUserFromGroup(api.getCurrentUserID(), threadID));
+    data.reason = reason || null;
+    data.dateAdded = time;
+    global.data.threadBanned.set(idgr, { reason: data.reason, dateAdded: data.dateAdded });
+    return api.sendMessage(`Nhóm ${idgr} của bạn đã bị ban, không thể sử dụng bot!, lý do: chửi bot `, threadID);
   };
 
   if ((event.body.toLowerCase() == "bot lồn") || (event.body.toLowerCase() == "bot lon")) {
@@ -35,7 +41,7 @@ module.exports.handleEvent = function({ api, event }) {
     return api.sendMessage("Hmm... Bot ko biết yêu, yêu admin bot kia kìa :))", threadID);
   };
 
-   if ((event.body.toLowerCase() == "yêu anh") || (event.body.toLowerCase() == "yeu anh")) {
+  if ((event.body.toLowerCase() == "yêu anh") || (event.body.toLowerCase() == "yeu anh")) {
     return api.sendMessage("Anh cũng yêu em <3", threadID);
   };
 
